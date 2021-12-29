@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import {
   Button,
   Form,
@@ -30,8 +30,13 @@ export default function SearchComponent({favs, setFavs}) {
   const apiUrl = `https://gateway.marvel.com:443/v1/public/comics?dateRange=${startDate}%2C${endDate}&titleStartsWith=${comic}&orderBy=${orderChange}&limit=${limit}&ts=${timestamp}&apikey=${apiKey}&hash=${hash}`
 
   const setFavorite = (item) => {
-    setFavs([...favs, item])
-    setFavclicked(true)
+    console.log("favs: ", favs)
+    console.log("items: ", item)
+
+    if (favs.indexOf(item) === -1) {
+      setFavs([...favs, item])
+      setFavclicked(true)
+    }
   }
 
   function GenerateApi() {
