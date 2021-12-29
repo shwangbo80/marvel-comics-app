@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, {useState} from "react"
 import {
   Button,
   Form,
@@ -12,31 +12,7 @@ import {
 import {Rolling} from "react-loading-io"
 import {SuitHeart, SuitHeartFill} from "react-bootstrap-icons"
 
-export default function SearchComponent({
-  favs,
-  setFavs,
-  //   setFavorite,
-  //   comic,
-  //   setComic,
-  //   startDate,
-  //   setStartDate,
-  //   endDate,
-  //   setEndDate,
-  //   limit,
-  //   setLimit,
-  //   orderChange,
-  //   setOrderChange,
-  //   setApiData,
-  //   apiData,
-  //   setFavorite,
-  //   apiUrl,
-  //   loaderActive,
-  //   isLoading,
-  //   loader,
-  //   setLoading,
-  //   setErrorMessage,
-  //   errorMessage,
-}) {
+export default function SearchComponent({favs, setFavs}) {
   const [comic, setComic] = useState("")
   const [startDate, setStartDate] = useState("2015-01-01")
   const [endDate, setEndDate] = useState("2021-12-01")
