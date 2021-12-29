@@ -1,11 +1,13 @@
-import React, {useState, useEffect} from "react"
+import React, {useState} from "react"
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import NavComponent from "./NavComponent"
 import SearchComponent from "./SearchComponent"
 import FavComponent from "./FavComponent"
 import {Container} from "react-bootstrap"
 
-export default function MainComponent({favs, setFavs}) {
+export default function MainComponent() {
+  const [favs, setFavs] = useState([])
+
   return (
     <Container>
       <Router>
@@ -14,9 +16,9 @@ export default function MainComponent({favs, setFavs}) {
           <Route
             exact
             path="/"
-            render={() => <SearchComponent favs={favs} setFavs={setFavs} />}>
-            {/* <Search /> */}
-          </Route>
+            render={() => (
+              <SearchComponent favs={favs} setFavs={setFavs} />
+            )}></Route>
           <Route
             exact
             path="/favs"
