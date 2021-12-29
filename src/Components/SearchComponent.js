@@ -99,11 +99,15 @@ export default function SearchComponent({favs, setFavs}) {
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
-              <Image
-                fluid
-                alt={item.title}
-                src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-              />
+              <a
+                href={`${item.thumbnail.path}.${item.thumbnail.extension}`}
+                target="_blank">
+                <Image
+                  fluid
+                  alt={item.title}
+                  src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
+                />
+              </a>
             </div>
           </Col>
         )
