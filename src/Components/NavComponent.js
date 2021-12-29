@@ -4,7 +4,7 @@ import {Button, Container, Navbar, Nav} from "react-bootstrap"
 
 export default function NavComponent({favs}) {
   return (
-    <Container>
+    <Container className="sticky-top px-0">
       <Navbar
         collapseOnSelect
         expand="lg"

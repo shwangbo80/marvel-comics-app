@@ -1,11 +1,14 @@
+import React from "react"
+import {Container} from "react-bootstrap"
 import MainComponent from "./Components/MainComponent"
-import {useState} from "react"
 import "./App.css"
 
 function App() {
   return (
     <div className="App">
-      <MainComponent />
+      <Container>
+        <MainComponent />
+      </Container>
     </div>
   )
 }

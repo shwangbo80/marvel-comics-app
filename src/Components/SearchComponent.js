@@ -10,7 +10,7 @@ import {
   Accordion,
 } from "react-bootstrap"
 import {Rolling} from "react-loading-io"
-import {SuitHeart, SuitHeartFill} from "react-bootstrap-icons"
+import {HeartFill, SuitHeart, SuitHeartFill} from "react-bootstrap-icons"
 
 export default function SearchComponent({favs, setFavs}) {
   const [comic, setComic] = useState("")
@@ -32,14 +32,14 @@ export default function SearchComponent({favs, setFavs}) {
   const setFavorite = (item) => {
     console.log("favs: ", favs)
     console.log("items: ", item)
-
+    setFavclicked(true)
     if (favs.indexOf(item) === -1) {
       setFavs([...favs, item])
       setFavclicked(true)
     }
   }
 
-  function GenerateApi() {
+  const GenerateApi = () => {
     fetch(apiUrl)
       .then((response) => {
         if (response.status >= 200 && response.status <= 299) {
@@ -63,7 +63,7 @@ export default function SearchComponent({favs, setFavs}) {
       })
   }
 
-  function RenderData() {
+  const RenderData = () => {
     if (!isLoading) {
       return <div></div>
     } else if (isLoading) {
@@ -116,7 +116,7 @@ export default function SearchComponent({favs, setFavs}) {
     }
   }
 
-  function Loader() {
+  const Loader = () => {
     if (loader) {
       return <Rolling size={64} />
     } else {
@@ -124,7 +124,7 @@ export default function SearchComponent({favs, setFavs}) {
     }
   }
 
-  function displayErrorMessage(error) {
+  const displayErrorMessage = (error) => {
     if (!error) {
       return <p className="mt-3"></p>
     } else if (error) {
@@ -169,7 +169,7 @@ export default function SearchComponent({favs, setFavs}) {
   return (
     <div>
       <Container className="bg-light">
-        <Row className="mt-5">
+        <Row>
           <Col></Col>
           <Col className="mt-5">
             <Form onSubmit={handleSubmit}>
