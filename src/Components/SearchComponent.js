@@ -18,7 +18,7 @@ export default function SearchComponent({favs, setFavs}) {
   const [endDate, setEndDate] = useState("2021-12-01")
   const [limit, setLimit] = useState(5)
   const [orderChange, setOrderChange] = useState("")
-  const [favClicked, setFavclicked] = useState(false)
+  const [heartColor, setHeartColor] = useState("heart_icon_gray")
 
   const [isLoading, setLoading] = useState(false)
   const [loader, loaderActive] = useState(false)
@@ -32,10 +32,28 @@ export default function SearchComponent({favs, setFavs}) {
   const setFavorite = (item) => {
     console.log("favs: ", favs)
     console.log("items: ", item)
-    setFavclicked(true)
     if (favs.indexOf(item) === -1) {
       setFavs([...favs, item])
-      setFavclicked(true)
+    }
+  }
+
+  //   useEffect(() => {
+  //     console.log(apiData)
+  //     const injectData = () => {
+  //       const injectResult = apiData.data.results.map((comic) => {
+  //         return {...comic, favorite: false}
+  //       })
+  //       console.log(injectResult)
+  //     }
+  //     injectData()
+  //   }, [apiData])
+
+  const setIconColor = () => {
+    if (heartColor === "heart_icon_gray") {
+      setHeartColor("heart_icon_red")
+    }
+    if (heartColor === "heart_icon_red") {
+      setHeartColor("heart_icon_gray")
     }
   }
 
@@ -70,7 +88,7 @@ export default function SearchComponent({favs, setFavs}) {
       const listItems = apiData.data.results.map((item, key) => {
         return (
           <Col md={4} key={item.id} className="py-2">
-            <div className="resultContainer">
+            <div className="resultContainer" key={key}>
               <h5 className="ellipsis">{item.title}</h5>
               <Row className="mt-3">
                 <Col xs={2}>
@@ -82,9 +100,11 @@ export default function SearchComponent({favs, setFavs}) {
                   </a>
                 </Col>
                 <Col xs={3}>
-                  <SuitHeart
+                  <SuitHeartFill
+                    className={heartColor}
                     onClick={() => {
                       setFavorite(item)
+                      setIconColor()
                     }}
                   />
                 </Col>

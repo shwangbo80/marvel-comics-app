@@ -34,3 +34,15 @@ body {
 .show {
   width: auto;
 }
+
+.heart_icon_gray {
+  font-size: 15px;
+  color: gray;
+  transition: 2000ms;
+}
+
+.heart_icon_red {
+  font-size: 20px;
+  color: red;
+  transition: 2000ms;
+}
