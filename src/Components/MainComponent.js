@@ -9,24 +9,20 @@ export default function MainComponent() {
   const [favs, setFavs] = useState([])
 
   return (
-    <Container>
-      <Router>
-        <NavComponent favs={favs} />
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <SearchComponent favs={favs} setFavs={setFavs} />
-            )}></Route>
-          <Route
-            exact
-            path="/favs"
-            render={() => (
-              <FavComponent favs={favs} setFavs={setFavs} />
-            )}></Route>
-        </Switch>
-      </Router>
-    </Container>
+    <Router>
+      <NavComponent favs={favs} />
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <SearchComponent favs={favs} setFavs={setFavs} />
+          )}></Route>
+        <Route
+          exact
+          path="/favs"
+          render={() => <FavComponent favs={favs} setFavs={setFavs} />}></Route>
+      </Switch>
+    </Router>
   )
 }

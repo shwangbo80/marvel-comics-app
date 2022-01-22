@@ -15,10 +15,11 @@ import {HeartFill, SuitHeart, SuitHeartFill} from "react-bootstrap-icons"
 export default function SearchComponent({favs, setFavs}) {
   const [comic, setComic] = useState("")
   const [startDate, setStartDate] = useState("2015-01-01")
-  const [endDate, setEndDate] = useState("2021-12-01")
+  const [endDate, setEndDate] = useState("2022-01-01")
   const [limit, setLimit] = useState(5)
   const [orderChange, setOrderChange] = useState("")
   const [heartColor, setHeartColor] = useState("heart_icon_gray")
+  const [clickedButton, setClickedButton] = useState()
 
   const [isLoading, setLoading] = useState(false)
   const [loader, loaderActive] = useState(false)
@@ -34,26 +35,8 @@ export default function SearchComponent({favs, setFavs}) {
     console.log("items: ", item)
     if (favs.indexOf(item) === -1) {
       setFavs([...favs, item])
-    }
-  }
-
-  //   useEffect(() => {
-  //     console.log(apiData)
-  //     const injectData = () => {
-  //       const injectResult = apiData.data.results.map((comic) => {
-  //         return {...comic, favorite: false}
-  //       })
-  //       console.log(injectResult)
-  //     }
-  //     injectData()
-  //   }, [apiData])
-
-  const setIconColor = () => {
-    if (heartColor === "heart_icon_gray") {
-      setHeartColor("heart_icon_red")
-    }
-    if (heartColor === "heart_icon_red") {
-      setHeartColor("heart_icon_gray")
+    } else {
+      alert("Item is already added to favs")
     }
   }
 
@@ -87,26 +70,26 @@ export default function SearchComponent({favs, setFavs}) {
     } else if (isLoading) {
       const listItems = apiData.data.results.map((item, key) => {
         return (
-          <Col md={4} key={item.id} className="py-2">
+          <Col sm={6} md={4} lg={3} key={item.id} className="py-2">
             <div className="resultContainer" key={key}>
               <h5 className="ellipsis">{item.title}</h5>
               <Row className="mt-3">
-                <Col xs={2}>
+                <Col className="text-center pt-2">
                   <h6>${item.prices[0].price}</h6>
                 </Col>
-                <Col xs={2}>
+                <Col className="text-center py-2">
                   <a href={item.urls[0].url} target="_blank" rel="noreferrer">
                     Detail
                   </a>
                 </Col>
-                <Col xs={3}>
-                  <SuitHeartFill
-                    className={heartColor}
+                <Col className="text-center py-2">
+                  <Button
+                    className="btn-danger btn-sm"
                     onClick={() => {
                       setFavorite(item)
-                      setIconColor()
-                    }}
-                  />
+                    }}>
+                    Fav
+                  </Button>
                 </Col>
               </Row>
               <Accordion className="my-2">
@@ -195,7 +178,7 @@ export default function SearchComponent({favs, setFavs}) {
       <Container className="bg-light">
         <Row>
           <Col></Col>
-          <Col className="mt-5">
+          <Col md={6} className="mt-5">
             <Form onSubmit={handleSubmit}>
               <FloatingLabel
                 controlId="floatingInput"
@@ -237,6 +220,7 @@ export default function SearchComponent({favs, setFavs}) {
                   <label htmlFor="start">Start date:</label>
                   <input
                     type="date"
+                    value={startDate}
                     min="1960-01-01"
                     max="2021-01-01"
                     onChange={startDateChange}
@@ -246,13 +230,17 @@ export default function SearchComponent({favs, setFavs}) {
                   <label htmlFor="end">End date:</label>
                   <input
                     type="date"
+                    value={endDate}
                     min="1960-01-01"
                     max={today}
                     onChange={endDateChange}
                   />
                 </Col>
               </Row>
-              <Button className="mt-4" type="button" onClick={handleSubmit}>
+              <Button
+                className="mt-4 btn-danger"
+                type="button"
+                onClick={handleSubmit}>
                 Search
               </Button>
             </Form>

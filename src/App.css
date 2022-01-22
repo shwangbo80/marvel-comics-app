@@ -1,10 +1,34 @@
+.container-fluid {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.container-mobile {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
 body {
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
 .ellipsis {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.hero-image {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://www.teahub.io/photos/full/17-179560_comic-book-wallpapers-100-quality-hd-comic-book.jpg");
+  height: 300px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
 }
 
 .resultContainer {
