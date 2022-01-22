@@ -1,3 +1,8 @@
+body {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://www.teahub.io/photos/full/17-179560_comic-book-wallpapers-100-quality-hd-comic-book.jpg");
+}
+
 .container-fluid {
   width: 100%;
   padding-right: 0px;
@@ -6,11 +11,6 @@
 
 .container-mobile {
   width: 100%;
-  padding-right: 0px;
-  padding-left: 0px;
-}
-
-body {
   padding-right: 0px;
   padding-left: 0px;
 }
@@ -29,6 +29,10 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+}
+
+.searchContainer {
+  min-height: 100vh;
 }
 
 .resultContainer {
@@ -57,16 +61,4 @@ body {
 
 .show {
   width: auto;
-}
-
-.heart_icon_gray {
-  font-size: 15px;
-  color: gray;
-  transition: 2000ms;
-}
-
-.heart_icon_red {
-  font-size: 20px;
-  color: red;
-  transition: 2000ms;
 }

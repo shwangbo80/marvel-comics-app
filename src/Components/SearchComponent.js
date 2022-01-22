@@ -14,7 +14,7 @@ import {HeartFill, SuitHeart, SuitHeartFill} from "react-bootstrap-icons"
 
 export default function SearchComponent({favs, setFavs}) {
   const [comic, setComic] = useState("")
-  const [startDate, setStartDate] = useState("2015-01-01")
+  const [startDate, setStartDate] = useState("1960-01-01")
   const [endDate, setEndDate] = useState("2022-01-01")
   const [limit, setLimit] = useState(5)
   const [orderChange, setOrderChange] = useState("")
@@ -175,7 +175,7 @@ export default function SearchComponent({favs, setFavs}) {
 
   return (
     <div>
-      <Container className="bg-light">
+      <Container className="bg-light searchContainer">
         <Row>
           <Col></Col>
           <Col md={6} className="mt-5">
@@ -217,7 +217,10 @@ export default function SearchComponent({favs, setFavs}) {
               </Form.Select>
               <Row>
                 <Col>
-                  <label htmlFor="start">Start date:</label>
+                  <label htmlFor="start" className="mb-2">
+                    Start date:
+                  </label>
+                  <br />
                   <input
                     type="date"
                     value={startDate}
@@ -227,7 +230,10 @@ export default function SearchComponent({favs, setFavs}) {
                   />
                 </Col>
                 <Col>
-                  <label htmlFor="end">End date:</label>
+                  <label htmlFor="end" className="mb-2">
+                    End date:{" "}
+                  </label>
+                  <br />
                   <input
                     type="date"
                     value={endDate}
