@@ -167,11 +167,10 @@ export default function SearchComponent({favs, setFavs}) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
     if (comic === "spiderman" || comic === "spider man") {
-      alert("Spider-man is the correct spelling");
       return setComic("spider-man");
     }
+    e.preventDefault();
     GenerateApi();
   };
 
