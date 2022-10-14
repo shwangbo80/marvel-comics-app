@@ -146,7 +146,7 @@ export default function SearchComponent({favs, setFavs}) {
 
   const onChange = (e) => {
     e.preventDefault();
-    return setComic(e.target.value);
+    setComic(e.target.value);
   };
   const handleChange = (e) => {
     e.preventDefault();
