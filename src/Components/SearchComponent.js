@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect} from "react";
 import {
   Button,
   Form,
@@ -8,65 +8,66 @@ import {
   Col,
   Image,
   Accordion,
-} from "react-bootstrap"
-import {Rolling} from "react-loading-io"
-import {HeartFill, SuitHeart, SuitHeartFill} from "react-bootstrap-icons"
+} from "react-bootstrap";
+import {Rolling} from "react-loading-io";
+import {HeartFill, SuitHeart, SuitHeartFill} from "react-bootstrap-icons";
+import userEvent from "@testing-library/user-event";
 
 export default function SearchComponent({favs, setFavs}) {
-  const [comic, setComic] = useState("")
-  const [startDate, setStartDate] = useState("1960-01-01")
-  const [endDate, setEndDate] = useState("2022-01-01")
-  const [limit, setLimit] = useState(5)
-  const [orderChange, setOrderChange] = useState("")
-  const [heartColor, setHeartColor] = useState("heart_icon_gray")
-  const [clickedButton, setClickedButton] = useState()
+  const [comic, setComic] = useState("");
+  const [startDate, setStartDate] = useState("1960-01-01");
+  const [endDate, setEndDate] = useState("2022-01-01");
+  const [limit, setLimit] = useState(5);
+  const [orderChange, setOrderChange] = useState("");
+  const [heartColor, setHeartColor] = useState("heart_icon_gray");
+  const [clickedButton, setClickedButton] = useState();
 
-  const [isLoading, setLoading] = useState(false)
-  const [loader, loaderActive] = useState(false)
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [apiData, setApiData] = useState([])
-  const timestamp = 1
-  const apiKey = "ee1be0ed47fa16c1180ea42bf4c51dc3"
-  const hash = "abb8397e8f309853a6979c66696c8ee7"
-  const apiUrl = `https://gateway.marvel.com:443/v1/public/comics?dateRange=${startDate}%2C${endDate}&titleStartsWith=${comic}&orderBy=${orderChange}&limit=${limit}&ts=${timestamp}&apikey=${apiKey}&hash=${hash}`
+  const [isLoading, setLoading] = useState(false);
+  const [loader, loaderActive] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [apiData, setApiData] = useState([]);
+  const timestamp = 1;
+  const apiKey = "ee1be0ed47fa16c1180ea42bf4c51dc3";
+  const hash = "abb8397e8f309853a6979c66696c8ee7";
+  const apiUrl = `https://gateway.marvel.com:443/v1/public/comics?dateRange=${startDate}%2C${endDate}&titleStartsWith=${comic}&orderBy=${orderChange}&limit=${limit}&ts=${timestamp}&apikey=${apiKey}&hash=${hash}`;
 
   const setFavorite = (item) => {
-    console.log("favs: ", favs)
-    console.log("items: ", item)
+    console.log("favs: ", favs);
+    console.log("items: ", item);
     if (favs.indexOf(item) === -1) {
-      setFavs([...favs, item])
+      setFavs([...favs, item]);
     } else {
-      alert("Item is already added to favs")
+      alert("Item is already added to favs");
     }
-  }
+  };
 
   const GenerateApi = () => {
     fetch(apiUrl)
       .then((response) => {
         if (response.status >= 200 && response.status <= 299) {
-          return response.json()
+          return response.json();
         } else {
-          throw Error(response.statusText)
+          throw Error(response.statusText);
         }
       })
       .then(loaderActive(true))
       .then(setErrorMessage(false))
       .then((apiResult) => {
-        console.log(apiResult)
-        setApiData(apiResult)
-        setLoading(true)
-        loaderActive(false)
+        console.log(apiResult);
+        setApiData(apiResult);
+        setLoading(true);
+        loaderActive(false);
       })
       .catch((error) => {
-        loaderActive(false)
-        setErrorMessage(true)
-        console.log(error)
-      })
-  }
+        loaderActive(false);
+        setErrorMessage(true);
+        console.log(error);
+      });
+  };
 
   const RenderData = () => {
     if (!isLoading) {
-      return <div></div>
+      return <div></div>;
     } else if (isLoading) {
       const listItems = apiData.data.results.map((item, key) => {
         return (
@@ -86,7 +87,7 @@ export default function SearchComponent({favs, setFavs}) {
                   <Button
                     className="btn-danger btn-sm"
                     onClick={() => {
-                      setFavorite(item)
+                      setFavorite(item);
                     }}>
                     Fav
                   </Button>
@@ -97,7 +98,7 @@ export default function SearchComponent({favs, setFavs}) {
                   <Accordion.Header>Creators</Accordion.Header>
                   <Accordion.Body>
                     {item.creators.items.map((item, key) => {
-                      return <p key={key}>{item.name}</p>
+                      return <p key={key}>{item.name}</p>;
                     })}
                   </Accordion.Body>
                 </Accordion.Item>
@@ -113,65 +114,68 @@ export default function SearchComponent({favs, setFavs}) {
               </a>
             </div>
           </Col>
-        )
-      })
+        );
+      });
       return (
         <Container className="mt-5">
           <Row>{listItems}</Row>
         </Container>
-      )
+      );
     }
-  }
+  };
 
   const Loader = () => {
     if (loader) {
-      return <Rolling size={64} />
+      return <Rolling size={64} />;
     } else {
-      return <div></div>
+      return <div></div>;
     }
-  }
+  };
 
   const displayErrorMessage = (error) => {
     if (!error) {
-      return <p className="mt-3"></p>
+      return <p className="mt-3"></p>;
     } else if (error) {
       return (
         <p className="text-danger mt-3">
           Invalid entry. Try sinmplifying the search
         </p>
-      )
+      );
     }
-  }
+  };
 
   const onChange = (e) => {
-    e.preventDefault()
-    setComic(e.target.value)
-  }
+    e.preventDefault();
+    return setComic(e.target.value);
+  };
   const handleChange = (e) => {
-    e.preventDefault()
-    setLimit(e.target.value)
-  }
+    e.preventDefault();
+    setLimit(e.target.value);
+  };
   const startDateChange = (e) => {
-    e.preventDefault()
-    setStartDate(e.target.value)
-  }
+    e.preventDefault();
+    setStartDate(e.target.value);
+  };
   const endDateChange = (e) => {
-    e.preventDefault()
-    setEndDate(e.target.value)
-  }
+    e.preventDefault();
+    setEndDate(e.target.value);
+  };
 
   const orderbyChange = (e) => {
-    e.preventDefault()
-    setOrderChange(e.target.value)
-  }
+    e.preventDefault();
+    setOrderChange(e.target.value);
+  };
 
-  const handleSubmit = (e) => {
-    console.log(e)
-    GenerateApi()
-    e.preventDefault()
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (comic === "spiderman" || comic === "spider man") {
+      alert("Spider-man is the correct spelling");
+      return setComic("spider-man");
+    }
+    GenerateApi();
+  };
 
-  let today = new Date().toISOString().slice(0, 10)
+  let today = new Date().toISOString().slice(0, 10);
 
   return (
     <div>
@@ -260,5 +264,5 @@ export default function SearchComponent({favs, setFavs}) {
         <RenderData />
       </Container>
     </div>
-  )
+  );
 }
