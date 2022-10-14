@@ -103,9 +103,7 @@ export default function SearchComponent({favs, setFavs}) {
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
-              <a
-                href={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-                target="_blank">
+              <a href={`${item.thumbnail.path}.${item.thumbnail.extension}`}>
                 <Image
                   fluid
                   alt={item.title}
@@ -171,17 +169,8 @@ export default function SearchComponent({favs, setFavs}) {
   };
 
   const handleSubmit = (e) => {
-    // e.preventDefault();
-    // GenerateApi();
-    if (comic === "spider man") {
-      console.log("wrong spelling");
-      setComic("spider-man");
-      GenerateApi();
-    } else {
-      console.log("correct spelling");
-      console.log(comic);
-      GenerateApi();
-    }
+    e.preventDefault();
+    GenerateApi();
   };
 
   let today = new Date().toISOString().slice(0, 10);
@@ -192,13 +181,7 @@ export default function SearchComponent({favs, setFavs}) {
         <Row>
           <Col></Col>
           <Col md={6} className="mt-5">
-            <Form
-              onSubmit={() => {
-                if (comic === "spider man" || comic === "spiderman") {
-                  setComic("spider-man");
-                  return handleSubmit();
-                } else handleSubmit();
-              }}>
+            <Form onSubmit={handleSubmit}>
               <FloatingLabel
                 controlId="floatingInput"
                 label="Comic Title"
