@@ -1,13 +1,10 @@
-import React from "react"
-import {Button, Container, Row, Col, Image, Accordion} from "react-bootstrap"
+import React from "react";
+import {Button, Container, Row, Col, Image, Accordion} from "react-bootstrap";
 
-export default function FavComponent({favs, setFavs, setFavorite}) {
-  const newFav = [...favs]
-  console.log(newFav)
-
-  if (newFav.length === 0) {
+export default function FavComponent({favs, setFavs}) {
+  if (favs.length === 0) {
     return (
-      <Container className="mt-5">
+      <Container className="favContainer">
         <Row>
           <Col></Col>
           <Col>
@@ -16,15 +13,15 @@ export default function FavComponent({favs, setFavs, setFavorite}) {
           <Col></Col>
         </Row>
       </Container>
-    )
+    );
   }
 
   const handleDelete = (id) => {
-    const newFavs = favs.filter((comic) => comic.id !== id)
-    setFavs(newFavs)
-  }
+    const newFavs = favs.filter((comic) => comic.id !== id);
+    setFavs(newFavs);
+  };
 
-  const renderFavs = newFav.reverse().map((item) => {
+  const renderFavs = favs.reverse().map((item) => {
     return (
       <Col md={3} key={item.id} className="py-2">
         <div className="resultContainer">
@@ -45,34 +42,30 @@ export default function FavComponent({favs, setFavs, setFavorite}) {
               <Accordion.Header>Creators</Accordion.Header>
               <Accordion.Body>
                 {item.creators.items.map((item, key) => {
-                  return <p key={key}>{item.name}</p>
+                  return <p key={key}>{item.name}</p>;
                 })}
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
-          <a
-            href={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-            target="_blank">
-            <Image
-              fluid
-              alt={item.title}
-              src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-            />
-          </a>
+          <Image
+            fluid
+            alt={item.title}
+            src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
+          />
           <Button
             className="btn-danger mt-3"
             onClick={() => {
-              handleDelete(item.id)
+              handleDelete(item.id);
             }}>
             Delete
           </Button>
         </div>
       </Col>
-    )
-  })
+    );
+  });
   return (
-    <Container className="mt-5">
+    <Container className="favContainer">
       <Row>{renderFavs}</Row>
     </Container>
-  )
+  );
 }

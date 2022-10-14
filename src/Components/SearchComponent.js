@@ -13,8 +13,7 @@ import {Rolling} from "react-loading-io";
 import {HeartFill, SuitHeart, SuitHeartFill} from "react-bootstrap-icons";
 import userEvent from "@testing-library/user-event";
 
-export default function SearchComponent({favs, setFavs}) {
-  const [comic, setComic] = useState(String);
+export default function SearchComponent({favs, setFavs, comic, setComic}) {
   const [startDate, setStartDate] = useState("1960-01-01");
   const [endDate, setEndDate] = useState("2022-01-01");
   const [limit, setLimit] = useState(5);
@@ -31,23 +30,31 @@ export default function SearchComponent({favs, setFavs}) {
   const hash = "abb8397e8f309853a6979c66696c8ee7";
   const apiUrl = `https://gateway.marvel.com:443/v1/public/comics?dateRange=${startDate}%2C${endDate}&titleStartsWith=${comic}&orderBy=${orderChange}&limit=${limit}&ts=${timestamp}&apikey=${apiKey}&hash=${hash}`;
 
-  const setFavorite = (item) => {
-    console.log("favs: ", favs);
-    console.log("items: ", item);
-    if (favs.indexOf(item) === -1) {
-      setFavs([...favs, item]);
+  useEffect(() => {
+    if (comic === "") {
+      return;
     } else {
+      GenerateApi();
+    }
+  }, []);
+
+  const setFavorite = (item) => {
+    if (favs.some((e) => e.id === item.id)) {
       alert("Item is already added to favs");
+      return;
+    } else {
+      setFavs([...favs, item]);
+      return;
     }
   };
 
   const GenerateApi = () => {
     fetch(apiUrl)
       .then((response) => {
-        if (response.status >= 200 && response.status <= 299) {
+        try {
           return response.json();
-        } else {
-          throw Error(response.statusText);
+        } catch (err) {
+          console.log(err);
         }
       })
       .then(loaderActive(true))
@@ -103,13 +110,11 @@ export default function SearchComponent({favs, setFavs}) {
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
-              <a href={`${item.thumbnail.path}.${item.thumbnail.extension}`}>
-                <Image
-                  fluid
-                  alt={item.title}
-                  src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-                />
-              </a>
+              <Image
+                fluid
+                alt={item.title}
+                src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
+              />
             </div>
           </Col>
         );

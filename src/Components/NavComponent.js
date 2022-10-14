@@ -1,6 +1,6 @@
-import React from "react"
-import {Link} from "react-router-dom"
-import {Button, Container, Navbar, Nav} from "react-bootstrap"
+import React from "react";
+import {Link} from "react-router-dom";
+import {Button, Container, Navbar, Nav} from "react-bootstrap";
 
 export default function NavComponent({favs}) {
   return (
@@ -22,12 +22,11 @@ export default function NavComponent({favs}) {
               Favs
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
                 {favs.length}
-                <span className="visually-hidden">unread messages</span>
               </span>
             </Button>
           </Link>
         </Container>
       </Navbar>
     </Container>
-  )
+  );
 }
