@@ -14,7 +14,7 @@ import {HeartFill, SuitHeart, SuitHeartFill} from "react-bootstrap-icons";
 import userEvent from "@testing-library/user-event";
 
 export default function SearchComponent({favs, setFavs}) {
-  const [comic, setComic] = useState("");
+  const [comic, setComic] = useState(String);
   const [startDate, setStartDate] = useState("1960-01-01");
   const [endDate, setEndDate] = useState("2022-01-01");
   const [limit, setLimit] = useState(5);
@@ -144,9 +144,13 @@ export default function SearchComponent({favs, setFavs}) {
     }
   };
 
-  const onChange = (e) => {
+  const heroName = async (e) => {
     e.preventDefault();
-    setComic(e.target.value);
+    if (e.target.value === "spiderman" || e.target.value === "spider man") {
+      return setComic("spider-man");
+    } else {
+      setComic(e.target.value);
+    }
   };
   const handleChange = (e) => {
     e.preventDefault();
@@ -166,12 +170,18 @@ export default function SearchComponent({favs, setFavs}) {
     setOrderChange(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
-    if (comic === "spiderman" || comic === "spider man") {
-      return setComic("spider-man");
+  const handleSubmit = (e) => {
+    // e.preventDefault();
+    // GenerateApi();
+    if (comic === "spider man") {
+      console.log("wrong spelling");
+      setComic("spider-man");
+      GenerateApi();
+    } else {
+      console.log("correct spelling");
+      console.log(comic);
+      GenerateApi();
     }
-    e.preventDefault();
-    GenerateApi();
   };
 
   let today = new Date().toISOString().slice(0, 10);
@@ -182,7 +192,13 @@ export default function SearchComponent({favs, setFavs}) {
         <Row>
           <Col></Col>
           <Col md={6} className="mt-5">
-            <Form onSubmit={handleSubmit}>
+            <Form
+              onSubmit={() => {
+                if (comic === "spider man" || comic === "spiderman") {
+                  setComic("spider-man");
+                  return handleSubmit();
+                } else handleSubmit();
+              }}>
               <FloatingLabel
                 controlId="floatingInput"
                 label="Comic Title"
@@ -190,7 +206,7 @@ export default function SearchComponent({favs, setFavs}) {
                 <Form.Control
                   type="search"
                   value={comic}
-                  onChange={onChange}
+                  onChange={heroName}
                   required
                 />
               </FloatingLabel>
