@@ -78,10 +78,10 @@ export default function SearchComponent({favs, setFavs, comic, setComic}) {
     } else if (isLoading) {
       const listItems = apiData.data.results.map((item, key) => {
         return (
-          <Col sm={6} md={4} lg={3} key={item.id} className="py-2">
+          <Col sm={12} md={6} lg={4} xl={3} key={item.id} className="py-2">
             <div className="resultContainer" key={key}>
               <h5 className="ellipsis">{item.title}</h5>
-              <Row className="mt-3">
+              {/* <Row className="mt-3">
                 <Col className="text-center pt-2">
                   <h6>${item.prices[0].price}</h6>
                 </Col>
@@ -99,7 +99,26 @@ export default function SearchComponent({favs, setFavs, comic, setComic}) {
                     Fav
                   </Button>
                 </Col>
-              </Row>
+              </Row> */}
+              <div className="topContainer mt-3 px-3">
+                <div>
+                  <h6>${item.prices[0].price}</h6>
+                </div>
+                <div>
+                  <a href={item.urls[0].url} target="_blank" rel="noreferrer">
+                    Detail
+                  </a>
+                </div>
+                <div>
+                  <Button
+                    className="btn-danger btn-sm"
+                    onClick={() => {
+                      setFavorite(item);
+                    }}>
+                    Fav
+                  </Button>
+                </div>
+              </div>
               <Accordion className="my-2">
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>Creators</Accordion.Header>

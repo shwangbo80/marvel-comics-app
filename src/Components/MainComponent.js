@@ -9,14 +9,6 @@ export default function MainComponent() {
   const [favs, setFavs] = useState([]);
   const [comic, setComic] = useState("");
 
-  const setFavorite = (item) => {
-    if (favs.indexOf(item) === -1) {
-      setFavs([...favs, item]);
-    } else {
-      alert("Item is already added to favs");
-    }
-  };
-
   return (
     <Router>
       <NavComponent favs={favs} />
@@ -30,19 +22,12 @@ export default function MainComponent() {
               setFavs={setFavs}
               comic={comic}
               setComic={setComic}
-              setFavorite={setFavorite}
             />
           )}></Route>
         <Route
           exact
           path="/favs"
-          render={() => (
-            <FavComponent
-              favs={favs}
-              setFavs={setFavs}
-              setFavorite={setFavorite}
-            />
-          )}></Route>
+          render={() => <FavComponent favs={favs} setFavs={setFavs} />}></Route>
       </Switch>
     </Router>
   );

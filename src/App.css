@@ -31,6 +31,12 @@ body {
   position: relative;
 }
 
+.topContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .searchContainer {
   min-height: 100vh;
 }
